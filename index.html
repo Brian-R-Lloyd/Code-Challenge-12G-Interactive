@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link href="styles/animate4.css" rel="stylesheet" type="text/css">
+<title>Brian Lloyd - Code Challenge</title>
+</head>
+
+<body>
+<div id="animation">
+<article id="details">
+<h1>Brian Lloyd</h1>
+<h3>Code Challenge</h3>
+<p>Here is my solution to the code challenge. This website contains three animations the ball, the shadow and this text box.</p>
+<p>The ball is animated using css3 keyframes to describe it's path and to create the squash and stretch transforms.</p>
+<p>The shadow animation is generated using JavaScript/jQuery. The position is calculated based on the x co-ordinate of the ball and the size and opacity of the shadow are calculated based on the y co-ordinate of the ball.</p>   
+</article>
+<div id="long_shadow"></div>
+    <div id="shadow"></div>
+    <div id="ball" class="speed_medium"></div>
+</div>
+<div id="controls">
+    <button class="play" onclick="JavaScript:play();">Pause</button><br />
+    <button class="slow" onclick="JavaScript:slow();">Slow</button>
+    <button class="medium" onclick="JavaScript:medium();"><strong>Medium</strong></button>
+    <button class="fast" onclick="JavaScript:fast();">Fast</button>
+<div id="cords"></div>
+</div>
+<script>
+
+setInterval(function()
+{
+	var ball_pos = $("#ball").position();
+	var x = ball_pos.left+68;
+	var y = ball_pos.top+137;
+	var h = -(y-600);
+	// calculate the shadow position -  light is approx 45 degrees
+	var sp = x-((h*.8939)/.8509)-105; 
+	// calculate the opacity of the shadow based on the height of the ball
+	var sd = 1-(h/600);
+	// calculate the width and height of the shadow no real formaula just looks good
+	var sh = (h/20)+35;
+	var sw = (h/3)+220;
+	
+	$('#shadow').css("left",sp + "px");
+	$('#shadow').css("width",sw + "px");
+	$('#shadow').css("height",sh + "px");
+	$('#shadow').css("opacity",sd);
+	$('#cords').html("<p>x:"+x.toFixed(2)+"<br />y:"+y.toFixed(2)+"<br />height :"+h.toFixed(2)+"<br />Shadow Density :"+sd.toFixed(2)+"<br />Shadow position :"+sp.toFixed(2)+"</p>")
+},40);
+
+setTimeout("hide_text()",15000);
+	function hide_text()
+	{
+		$('#details,#long_shadow').animate({opacity: '.0' },{ duration:5000})
+	};
+		
+	function play()
+	{
+		if($('#ball').hasClass('paused'))
+			{
+				$('#ball').removeClass('paused');
+				$('button.play').html('Pause');
+			}
+			else
+			{
+				$('#ball').addClass('paused');
+				$('button.play').html('Play');
+			}
+	};
+	
+	
+	function slow()
+		{
+			if($('#ball').hasClass('speed_medium'))
+			{
+				$('#ball').removeClass('speed_medium').delay(10).queue(function(next)
+				{
+							$('#ball').addClass('speed_slow');
+							$('button.slow').html('<strong>Slow</strong>');
+							$('button.medium').html('Medium');
+							$('button.fast').html('Fast');
+							next();
+				});
+			};
+		if($('#ball').hasClass('speed_fast'))
+		{
+			$('#ball').removeClass('speed_fast').delay(10).queue(function(next)
+			{
+						$('#ball').addClass('speed_slow');
+						$('button.slow').html('<strong>Slow</strong>');
+						$('button.medium').html('Medium');
+						$('button.fast').html('Fast');
+						next();
+		    });
+		};
+	};
+	
+	function fast(){
+		if($('#ball').hasClass('speed_medium'))
+		{
+			$('#ball').removeClass('speed_medium').delay(10).queue(function(next)
+			{
+						$('#ball').addClass('speed_fast');
+						$('button.slow').html('Slow');
+						$('button.medium').html('Medium');
+						$('button.fast').html('<strong>Fast</strong>');
+						next();
+		    });
+		};
+		if($('#ball').hasClass('speed_slow'))
+		{
+			$('#ball').removeClass('speed_slow').delay(10).queue(function(next)
+			{
+						$('#ball').addClass('speed_fast');
+						$('button.slow').html('Slow');
+						$('button.medium').html('Medium');
+						$('button.fast').html('<strong>Fast</strong>');
+						next();
+		    });
+		};
+	};
+	
+	function medium()
+	{
+		if($('#ball').hasClass('speed_slow'))
+		{
+			$('#ball').removeClass('speed_slow').delay(10).queue(function(next)
+			{
+						$('#ball').addClass('speed_medium');
+						$('button.slow').html('Slow');
+						$('button.medium').html('<strong>Medium</strong>');
+						$('button.fast').html('Fast');
+						next();
+		    });
+		};
+		if($('#ball').hasClass('speed_fast'))
+		{
+			$('#ball').removeClass('speed_fast').delay(10).queue(function(next)
+			{
+						$('#ball').addClass('speed_medium');
+						$('button.slow').html('Slow');
+						$('button.medium').html('<strong>Medium</strong>');
+						$('button.fast').html('Fast');
+						next();
+		    });
+		};
+	};
+	
+</script>
+</body>
+</html>
