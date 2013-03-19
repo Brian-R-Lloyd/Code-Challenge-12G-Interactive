@@ -7,9 +7,9 @@ Hi Maxime,
 
 Here is my solution to your Code Challenge.
 
-Tested in ie10, Firefox, Chrome and Safari.
+I have sucessfully Tested in ie10, Firefox and Chrome.
 
-I have found an issue with Safari and setting the “animation-play-state” to pause causing the page to reload. I did find reference to this problem here: 
+I have found an issue with Safari. Setting the “animation-play-state” to pause causes the page to reload. I did find reference to this problem here: 
 
 http://stackoverflow.com/questions/14156523/safari-refreshes-the-page-on-setting-animation-play-state-to-paused
 
